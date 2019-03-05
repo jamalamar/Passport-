@@ -36,7 +36,6 @@ router.post('/login', (req, res)=> {
 		username: req.body.username,
 		password: req.body.password,
 	})
-	.save()
 	.then((users)=>{
 		res.json(users)
 	})
