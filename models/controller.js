@@ -5,7 +5,7 @@ let Auth = require('./schema.js')
 
 
 //Get All
-router.get('/users', (req, res)=> {
+router.get('/', (req, res)=> {
 	Auth
 		.find()
 		.then((users)=> {

@@ -7,11 +7,11 @@ const AuthSchema = new mongoose.Schema(
 		password: String
 	},
 	{
-		collection: "passport-auth"
+		collection: "testData"
 	}
 )
 
 
-const AuthModel = mongoose.model('Passport', AuthSchema)
+const AuthModel = mongoose.model('Auth', AuthSchema)
 
 module.exports = AuthModel
