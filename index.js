@@ -4,6 +4,7 @@ let mongoose = require('mongoose')
 let app = express()
 let authRouter = require('./models/controller')
 let bodyParser = require('body-parser')
+let session =require('express-session')
 
 mongoose.connect('mongodb://localhost:27017/passport-auth', { useNewUrlParser: true })
 
@@ -15,7 +16,14 @@ let errorMiddleWare = function(error, req, res, next) {
 }
 
 app.use(errorMiddleWare)
-app.use('/users', authRouter)
+app.use(session({ 
+  secret: 'keyboardog',
+  resave: false,
+  saveUninitialized: true, 
+  cookie: { maxAge: 3600000 }
+  })
+)
+app.use('/', authRouter)
 
 
 const PORT = 9000

@@ -5,7 +5,7 @@ let Auth = require('./schema.js')
 
 
 //Get All
-router.get('/', (req, res)=> {
+router.get('/users', (req, res)=> {
 	Auth
 		.find()
 		.then((users)=> {
@@ -14,8 +14,8 @@ router.get('/', (req, res)=> {
 })
 
 
-//Create
-router.post('/', (req, res)=> {
+//Register
+router.post('/register', (req, res)=> {
 	let auth = new Auth({
 		username: req.body.username,
 		password: req.body.password,
@@ -25,6 +25,20 @@ router.post('/', (req, res)=> {
 	.save()
 	.then((savedAuth)=> {
 		res.json(savedAuth)
+	})
+})
+
+
+//Login
+router.post('/login', (req, res)=> {
+	Auth
+	.find({
+		username: req.body.username,
+		password: req.body.password,
+	})
+	.save()
+	.then((users)=>{
+		res.json(users)
 	})
 })
 
@@ -43,7 +57,7 @@ router.delete('/users/:username', (req, res)=> {
 
 
 //Delete
-router.delete('/users/:id', (req, res)=> {
+router.delete('/users/delete/:id', (req, res)=> {
 	let id = req.params.id
 	Auth
 		.findByIdAndDelete(id)
