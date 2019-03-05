@@ -1,12 +1,33 @@
 
 let express = require('express')
 let router = express.Router()
-let Auth = require('./schema.js')
+let User = require('./schema.js')
+let passport = require('passport')
+let LocalStrategy = require('passport-local-mongoose')
+ 
+// use static authenticate method of model in LocalStrategy
+passport.use(User.createStrategy());
+ 
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
+// passport.use(new LocalStrategy(
+//   function(username, password, done) {
+//     User.findOne({ username: username }, function (err, user) {
+//       if (err) { return done(err); }
+//       if (!user) { return done(null, false); }
+//       if (!user.verifyPassword(password)) { return done(null, false); }
+//       return done(null, user);
+//     });
+//   }
+// ));
+
 
 
 //Get All
 router.get('/users', (req, res)=> {
-	Auth
+	User
 		.find()
 		.then((users)=> {
 			res.json(users)
@@ -16,12 +37,12 @@ router.get('/users', (req, res)=> {
 
 //Register
 router.post('/register', (req, res)=> {
-	let auth = new Auth({
+	let user = new User({
 		username: req.body.username,
 		password: req.body.password,
 	})
 
-	auth
+	user
 	.save()
 	.then((savedAuth)=> {
 		res.json(savedAuth)
@@ -30,8 +51,15 @@ router.post('/register', (req, res)=> {
 
 
 //Login
+// router.post('/login', 
+//   passport.authenticate({ failureRedirect: '/login' }),
+//   (req, res)=> {
+//     res.redirect('/users');
+//   });
+
+
 router.post('/login', (req, res)=> {
-	Auth
+	User
 	.find({
 		username: req.body.username,
 		password: req.body.password,

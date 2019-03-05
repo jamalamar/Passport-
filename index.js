@@ -2,7 +2,7 @@
 let express = require('express')
 let mongoose = require('mongoose')
 let app = express()
-let authRouter = require('./models/controller')
+let userRouter = require('./models/controller')
 let bodyParser = require('body-parser')
 let session =require('express-session')
 
@@ -23,7 +23,7 @@ app.use(session({
   cookie: { maxAge: 3600000 }
   })
 )
-app.use('/', authRouter)
+app.use('/', userRouter)
 
 
 const PORT = 9000
