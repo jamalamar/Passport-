@@ -3,25 +3,48 @@ let express = require('express')
 let router = express.Router()
 let User = require('./schema.js')
 let passport = require('passport')
-let LocalStrategy = require('passport-local-mongoose')
  
-// use static authenticate method of model in LocalStrategy
-passport.use(User.createStrategy());
- 
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 
-// passport.use(new LocalStrategy(
-//   function(username, password, done) {
-//     User.findOne({ username: username }, function (err, user) {
-//       if (err) { return done(err); }
-//       if (!user) { return done(null, false); }
-//       if (!user.verifyPassword(password)) { return done(null, false); }
-//       return done(null, user);
-//     });
-//   }
-// ));
+  // router.get('/', function (req, res) {
+  //     res.render('index', { user : req.user });
+  // });
+
+  // router.get('/register', function(req, res) {
+  //     res.render('register', { });
+  // });
+
+  // router.post('/register', function(req, res) {
+  //   Account.register(new Account({ username : req.body.username }), req.body.password, function(err, account) {
+  //       if (err) {
+  //           return res.render('register', { account : account });
+  //       }
+
+  //       passport.authenticate('local')(req, res, function () {
+  //         res.redirect('/');
+  //       });
+  //   });
+  // });
+
+  // router.get('/login', function(req, res) {
+  //     res.render('login', { user : req.user });
+  // });
+
+  // router.post('/login', passport.authenticate('local'), function(req, res) {
+  //     res.redirect('/');
+  // });
+
+  // router.get('/logout', function(req, res) {
+  //     req.logout();
+  //     res.redirect('/');
+  // });
+
+  // router.get('/ping', function(req, res){
+  //     res.send("pong!", 200);
+  // });
+
+
+
 
 
 
